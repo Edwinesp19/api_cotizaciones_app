@@ -18,9 +18,9 @@ router.get('/ordersdetails', (req, res) => {
 // GET An Employee
 router.get('/ordersdetails/:id', (req, res) => {
   const { id } = req.params; 
-  mysqlConnection.query('SELECT order_details.id, order_id, product_id, quantity, order_details.price, description FROM order_details JOIN products ON products.id = product_id WHERE order_details.order_id = ?', [id], (err, rows, fields) => {
+  mysqlConnection.query('SELECT order_details.id, order_id, product_id, quantity, order_details.price, description FROM order_details JOIN products ON products.id = product_id WHERE order_id=?', [id], (err, rows, fields) => {
     if (!err) {
-      res.json(rows[0]);
+      res.json(rows);
     } else {
       console.log(err);
     }

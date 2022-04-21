@@ -15,7 +15,7 @@ router.get('/categoriesproducts', (req, res) => {
 
       const data = function(){
         return new Promise(function(resolve, reject){
-          mysqlConnection.query(`SELECT categories.id AS id_categoria, products.id AS id_product, products.name AS producto, products.price AS precio, products.stock AS stock FROM categories JOIN products ON ${id} = products.category_id order BY  categories.id asc`, async(err, rows2, fields)=>{
+          mysqlConnection.query(`SELECT categories.id AS id_categoria, products.id AS id_producto, products.name, products.price, products.stock FROM categories JOIN products ON ${id} = products.category_id order BY  categories.id asc`, async(err, rows2, fields)=>{
             const hj = {
               id_categorie: id,
               name_categories: name,
