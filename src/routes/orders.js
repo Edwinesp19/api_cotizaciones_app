@@ -26,6 +26,17 @@ router.get('/orders/:id', (req, res) => {
     }
   });
 });
+// GET An Employee
+router.get('/ordersnextid', (req, res) => {
+  const { id } = req.params; 
+  mysqlConnection.query('SELECT MAX(orders.id)+1 AS id FROM orders',(err, rows, fields) => {
+    if (!err) {
+      res.json(rows[0]);
+    } else {
+      console.log(err);
+    }
+  });
+});
 
 // DELETE An Employee
 router.delete('/:id', (req, res) => {
@@ -40,18 +51,15 @@ router.delete('/:id', (req, res) => {
 });
 
 // INSERT An Employee
-router.post('/', (req, res) => {
-  const {id, name, salary} = req.body;
-  console.log(id, name, salary);
+router.post('/orderput', (req, res) => {
+  const {total_, items_, discount_, customerid_, userid_} = req.body;
+  console.log(total_, items_, discount_, customerid_, userid_);
   const query = `
-    SET @id = ?;
-    SET @name = ?;
-    SET @salary = ?;
-    CALL employeeAddOrEdit(@id, @name, @salary);
+     CALL sp_order_create(?, ?, ?, ?, ?);
   `;
-  mysqlConnection.query(query, [id, name, salary], (err, rows, fields) => {
+  mysqlConnection.query(query, [total_, items_, discount_, customerid_, userid_], (err, rows, fields) => {
     if(!err) {
-      res.json({status: 'Employeed Saved'});
+      res.json({status: 'Order Saved'});
     } else {
       console.log(err);
     }

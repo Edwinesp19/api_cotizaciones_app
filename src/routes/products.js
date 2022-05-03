@@ -19,7 +19,7 @@ router.get('/categoriesproducts', (req, res) => {
             const hj = {
               id_categorie: id,
               name_categories: name,
-              products: rows2.filter((product)=> product.id_categoria === id ? product : ''  )
+              products: rows2.filter((product)=> product.id_categoria === id ? product : '')
             }
             resolve(hj)
           })
@@ -27,8 +27,8 @@ router.get('/categoriesproducts', (req, res) => {
       }
      
     const result = await data()
-    const res2 = [result]
-    return res2
+    
+    return result
     })
     const rs = await Promise.all(result_product)
     res.json(rs)
@@ -51,11 +51,11 @@ console.log(rows)
 });
 
 // GET An Employee
-router.get('/products/:id', (req, res) => {
+router.get('/categoriesproducts/:id', (req, res) => {
   const { id } = req.params; 
-  mysqlConnection.query('SELECT * FROM products WHERE id = ?', [id], (err, rows, fields) => {
+  mysqlConnection.query('SELECT categories.id AS id_categoria, products.id AS id_producto, products.name, products.price, products.stock FROM categories JOIN products WHERE categories.id = ?', [id], (err, rows, fields) => {
     if (!err) {
-      res.json(rows[0]);
+      res.json(rows);
     } else {
       console.log(err);
     }

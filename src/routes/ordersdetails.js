@@ -40,24 +40,39 @@ router.delete('/:id', (req, res) => {
 });
 
 // INSERT An Employee
-router.post('/', (req, res) => {
-  const {id, name, salary} = req.body;
-  console.log(id, name, salary);
+router.post('/orderdetailsput', (req, res) => {
+  const {orderid_, productid_, quantity_, price_ } = req.body;
+  console.log(orderid_, productid_, quantity_, price_);
   const query = `
-    SET @id = ?;
-    SET @name = ?;
-    SET @salary = ?;
-    CALL employeeAddOrEdit(@id, @name, @salary);
+     CALL sp_orderdetail_create(?, ?, ?, ?);
   `;
-  mysqlConnection.query(query, [id, name, salary], (err, rows, fields) => {
+  mysqlConnection.query(query, [orderid_, productid_, quantity_, price_], (err, rows, fields) => {
     if(!err) {
-      res.json({status: 'Employeed Saved'});
+      res.json({status: 'OrderDetail Saved'});
     } else {
       console.log(err);
     }
   });
-
 });
+//  INSERT An Employee
+// router.post('/', (req, res) => {
+//   const {id, name, salary} = req.body;
+//   console.log(id, name, salary);
+//   const query = `
+//     SET @id = ?;
+//     SET @name = ?;
+//     SET @salary = ?;
+//     CALL employeeAddOrEdit(@id, @name, @salary);
+//   `;
+//   mysqlConnection.query(query, [id, name, salary], (err, rows, fields) => {
+//     if(!err) {
+//       res.json({status: 'Employeed Saved'});
+//     } else {
+//       console.log(err);
+//     }
+//   });
+
+// });
 
 router.put('/:id', (req, res) => {
   const { name, salary } = req.body;
