@@ -39,19 +39,16 @@ router.delete('/:id', (req, res) => {
   });
 });
 
-// INSERT An Employee
-router.post('/', (req, res) => {
-  const {id, name, salary} = req.body;
-  console.log(id, name, salary);
+// INSERT A Client
+router.post('/clientput', (req, res) => {
+  const {name_, phone_, mobile_, email_, address_, reference_, promotion_} = req.body;
+  console.log(name_, phone_, mobile_, email_, address_, reference_, promotion_);
   const query = `
-    SET @id = ?;
-    SET @name = ?;
-    SET @salary = ?;
-    CALL employeeAddOrEdit(@id, @name, @salary);
+     CALL sp_customer_create(?, ?, ?, ?, ?, ?, ?);
   `;
-  mysqlConnection.query(query, [id, name, salary], (err, rows, fields) => {
+  mysqlConnection.query(query, [name_, phone_, mobile_, email_, address_, reference_, promotion_], (err, rows, fields) => {
     if(!err) {
-      res.json({status: 'Employeed Saved'});
+      res.json({status: 'Client Saved'});
     } else {
       console.log(err);
     }

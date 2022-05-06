@@ -5,7 +5,7 @@ const mysqlConnection  = require('../database.js');
 
 // GET all Employees
 router.get('/orders', (req, res) => {
-  mysqlConnection.query('SELECT orders.id AS id_order, total, orders.created_at AS fecha_order, customers.id AS codcli, customers.name AS nomcli FROM orders JOIN  customers ON  customers.id = orders.customer_id  ORDER BY fecha_order desc', (err, rows, fields) => {
+  mysqlConnection.query('SELECT orders.id AS id_order, total, items, orders.created_at AS fecha_order, customers.id AS codcli, customers.name AS nomcli FROM orders JOIN  customers ON  customers.id = orders.customer_id  ORDER BY fecha_order desc', (err, rows, fields) => {
 
     if(!err) {
       res.json(rows);
@@ -18,7 +18,7 @@ router.get('/orders', (req, res) => {
 // GET An Employee
 router.get('/orders/:id', (req, res) => {
   const { id } = req.params; 
-  mysqlConnection.query('SELECT orders.id AS id_order, total, orders.created_at AS fecha_order, customers.id AS codcli, customers.name AS nomcli FROM orders JOIN  customers ON  customers.id = orders.customer_id WHERE orders.id = ?', [id], (err, rows, fields) => {
+  mysqlConnection.query('SELECT orders.id AS id_order, total, items, orders.created_at AS fecha_order, customers.id AS codcli, customers.name AS nomcli FROM orders JOIN  customers ON  customers.id = orders.customer_id WHERE orders.id = ?', [id], (err, rows, fields) => {
     if (!err) {
       res.json(rows[0]);
     } else {
@@ -50,7 +50,7 @@ router.delete('/:id', (req, res) => {
   });
 });
 
-// INSERT An Employee
+// INSERT An Order
 router.post('/orderput', (req, res) => {
   const {total_, items_, discount_, customerid_, userid_} = req.body;
   console.log(total_, items_, discount_, customerid_, userid_);
