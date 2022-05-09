@@ -5,7 +5,7 @@ const mysqlConnection  = require('../database.js');
 
 // GET all Employees
 router.get('/customers', (req, res) => {
-  mysqlConnection.query('SELECT id AS id_client, NAME AS name , phone, email, address FROM customers', (err, rows, fields) => {
+  mysqlConnection.query('SELECT id AS id_client, NAME AS name , phone, mobile, email, address,reference,promotion FROM customers', (err, rows, fields) => {
 
     if(!err) {
       res.json(rows);
@@ -18,7 +18,7 @@ router.get('/customers', (req, res) => {
 // GET An Employee
 router.get('/customers/:id', (req, res) => {
   const { id } = req.params; 
-  mysqlConnection.query('SELECT id AS id_client, NAME AS name , phone, email, address FROM customers WHERE customers.id = ?', [id], (err, rows, fields) => {
+  mysqlConnection.query('SELECT id AS id_client, NAME AS name , phone, mobile, email, address,reference,promotion FROM customers WHERE customers.id = ?', [id], (err, rows, fields) => {
     if (!err) {
       res.json(rows[0]);
     } else {
@@ -40,7 +40,7 @@ router.delete('/:id', (req, res) => {
 });
 
 // INSERT A Client
-router.post('/clientput', (req, res) => {
+router.post('/clientsput', (req, res) => {
   const {name_, phone_, mobile_, email_, address_, reference_, promotion_} = req.body;
   console.log(name_, phone_, mobile_, email_, address_, reference_, promotion_);
   const query = `
