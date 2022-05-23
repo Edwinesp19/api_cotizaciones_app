@@ -40,7 +40,7 @@ router.delete('/:id', (req, res) => {
 });
 
 // INSERT An Employee
-router.post('/orderdetailsput', (req, res) => {
+router.post('/orderdetailspost', (req, res) => {
   const {orderid_, productid_, quantity_, price_ } = req.body;
   console.log(orderid_, productid_, quantity_, price_);
   const query = `

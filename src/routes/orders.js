@@ -51,7 +51,7 @@ router.delete('/:id', (req, res) => {
 });
 
 // INSERT An Order
-router.post('/orderput', (req, res) => {
+router.post('/orderpost', (req, res) => {
   const {total_, items_, discount_, customerid_, userid_} = req.body;
   console.log(total_, items_, discount_, customerid_, userid_);
   const query = `

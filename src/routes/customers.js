@@ -40,7 +40,7 @@ router.delete('/:id', (req, res) => {
 });
 
 // INSERT A Client
-router.post('/clientsput', (req, res) => {
+router.post('/clientspost', (req, res) => {
   const {name_, phone_, mobile_, email_, address_, reference_, promotion_} = req.body;
   console.log(name_, phone_, mobile_, email_, address_, reference_, promotion_);
   const query = `
@@ -56,18 +56,17 @@ router.post('/clientsput', (req, res) => {
 
 });
 
-router.put('/:id', (req, res) => {
-  const { name, salary } = req.body;
+router.put('/clientsput/:id', (req, res) => {
+
+  const {id_, name_, phone_, mobile_, email_, address_, reference_, promotion_} = req.body;
+  console.log(id_,name_, phone_, mobile_, email_, address_, reference_, promotion_);
   const { id } = req.params;
   const query = `
-    SET @id = ?;
-    SET @name = ?;
-    SET @salary = ?;
-    CALL employeeAddOrEdit(@id, @name, @salary);
+     CALL sp_customer_update(?,?, ?, ?, ?, ?, ?, ?);
   `;
-  mysqlConnection.query(query, [id, name, salary], (err, rows, fields) => {
+  mysqlConnection.query(query, [id_, name_, phone_, mobile_, email_, address_, reference_, promotion_], (err, rows, fields) => {
     if(!err) {
-      res.json({status: 'Employee Updated'});
+      res.json({status: 'Client Updated'});
     } else {
       console.log(err);
     }
