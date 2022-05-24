@@ -9,6 +9,7 @@ app.use(express.json());
 
 // Routes
 app.use(require('./routes/products'));
+app.use(require('./routes/users'));
 app.use(require('./routes/orders'));
 app.use(require('./routes/ordersdetails'));
 app.use(require('./routes/customers'));
