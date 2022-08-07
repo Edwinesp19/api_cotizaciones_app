@@ -18,3 +18,5 @@ app.use(require('./routes/customers'));
 app.listen(app.get('port'), () => {
   console.log(`Server on port ${app.get('port')}`);
 });
+
+//npm run dev
