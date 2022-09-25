@@ -1,7 +1,7 @@
-const mysql = require('mysql');
+const mysql = require("mysql");
 
 const mysqlConnection = mysql.createConnection({
-  host: "127.0.0.1",
+  host: "localhost",
   user: "root",
   password: "",
   database: "syspedidos3",
@@ -19,7 +19,7 @@ mysqlConnection.connect(function (err) {
     console.error(err);
     return;
   } else {
-    console.log('db is connected');
+    console.log("db is connected");
   }
 });
 
